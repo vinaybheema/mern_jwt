@@ -9,10 +9,6 @@ const passport = require("passport");
 const validateRegisterData = require("../../Validator/register");
 const validateLoginData = require("../../Validator/login");
 
-router.get("/test", (req, res) => {
-  res.send("Users Page is activated");
-});
-
 router.post("/register", (req, res) => {
   const { errors, isValid } = validateRegisterData(req.body);
   if (!isValid) {
