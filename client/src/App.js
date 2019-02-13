@@ -14,11 +14,16 @@ import Login from "./components/auth/Login";
 
 class App extends Component {
   render() {
-    // const token = localStorage.getItem("jwtToken");
     if (localStorage.jwtToken) {
       setAuthTokenHeader(localStorage.jwtToken);
       const decode = jwt_decode(localStorage.jwtToken);
       store.dispatch(setCurrentUser(decode));
+
+      const currentTime = Date.now() / 1000;
+      if(decode.exp < currentTime) {
+        store.dispatch(setCurrentUser());
+        window.location.href = '/login';
+      }
     }
 
     return (

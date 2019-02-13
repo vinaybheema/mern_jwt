@@ -24,7 +24,7 @@ export const logInUser = userData => dispatchEvent => {
       localStorage.setItem("jwtToken", token);
       setAuthTokenHeader(token);
       const decoded = jwt_decode(token);
-      console.log('data', decoded);
+      console.log("data", decoded);
       dispatchEvent(setCurrentUser(decoded));
     })
     .catch(err => {
@@ -40,4 +40,10 @@ export const setCurrentUser = decoded => {
     type: SET_CURRENT_USER,
     payload: decoded
   };
+};
+
+export const logOutUser = dispatchEvent => {
+  localStorage.removeItem("jwtToken");
+  setAuthTokenHeader(false);
+  dispatchEvent(setCurrentUser({}));
 };
